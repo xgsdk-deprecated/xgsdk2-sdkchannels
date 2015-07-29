@@ -33,8 +33,8 @@ public class XGAgentImpl extends XGAgent {
 
         try {
             MiAppInfo appInfo = new MiAppInfo();
-            String appId = SdkConfig.getAppId(activity);
-            String appKey = SdkConfig.getAppKey(activity);
+            String appId = ProductInfo.getChannelAppId(activity);
+            String appKey = ProductInfo.getChannelAppKey(activity);
             appInfo.setAppId(appId);
             appInfo.setAppKey(appKey);
             appInfo.setOrientation(ProductInfo.isLandspcape(activity) ? ScreenOrientation.horizontal
