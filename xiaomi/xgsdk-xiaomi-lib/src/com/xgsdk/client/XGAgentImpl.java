@@ -19,6 +19,7 @@ import com.xiaomi.gamecenter.sdk.entry.MiBuyInfo;
 import com.xiaomi.gamecenter.sdk.entry.ScreenOrientation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 public class XGAgentImpl extends XGAgent {
@@ -31,21 +32,25 @@ public class XGAgentImpl extends XGAgent {
     @Override
     public void init(Activity activity) {
 
+    }
+
+    @Override
+    public void onApplicationCreate(Context context) {// 小米渠道init不能放在Activity的onCreate中做，会报IntentReceiverLeaked错误
+        super.onApplicationCreate(context);
         try {
             MiAppInfo appInfo = new MiAppInfo();
-            String appId = ProductInfo.getChannelAppId(activity);
-            String appKey = ProductInfo.getChannelAppKey(activity);
+            String appId = ProductInfo.getChannelAppId(context);
+            String appKey = ProductInfo.getChannelAppKey(context);
             appInfo.setAppId(appId);
             appInfo.setAppKey(appKey);
-            appInfo.setOrientation(ProductInfo.isLandspcape(activity) ? ScreenOrientation.horizontal
+            appInfo.setOrientation(ProductInfo.isLandspcape(context) ? ScreenOrientation.horizontal
                     : ScreenOrientation.vertical);
-            MiCommplatform.Init(activity, appInfo);
+            MiCommplatform.Init(context, appInfo);
         } catch (Exception e) {
             XGLogger.e(getChannelId() + " init error.", e);
             mUserCallBack.onInitFail(XGErrorCode.SDK_CLIENT_INIT_FAILED,
                     e.getMessage());
         }
-
     }
 
     @Override
