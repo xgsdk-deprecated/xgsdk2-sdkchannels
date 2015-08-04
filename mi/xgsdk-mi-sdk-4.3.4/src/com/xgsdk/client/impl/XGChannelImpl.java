@@ -32,7 +32,7 @@ public class XGChannelImpl extends XGChannel {
 
     @Override
     public String getChannelAppId(Context context) {
-        return XGInfo.getXGConfig(context, "AppID", null);
+        return XGInfo.getSdkConfig(context, "AppID", null);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class XGChannelImpl extends XGChannel {
         super.onApplicationCreate(context);
         try {
             MiAppInfo appInfo = new MiAppInfo();
-            String appId = XGInfo.getXGConfig(context, "AppID", null);
-            String appKey = XGInfo.getXGConfig(context, "AppKey", null);
+            String appId = XGInfo.getSdkConfig(context, "AppID", null);
+            String appKey = XGInfo.getSdkConfig(context, "AppKey", null);
             appInfo.setAppId(appId);
             appInfo.setAppKey(appKey);
             appInfo.setOrientation(XGInfo.isLandspcape(context) ? ScreenOrientation.horizontal
