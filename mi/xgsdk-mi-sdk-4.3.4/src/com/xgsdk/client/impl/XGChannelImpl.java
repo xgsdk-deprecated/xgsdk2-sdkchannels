@@ -116,13 +116,10 @@ public class XGChannelImpl extends XGChannel {
             Bundle mBundle = new Bundle();
             mBundle.putString(GameInfoField.GAME_USER_BALANCE,
                     payInfo.getBalance()); // 余额信息
-            String vipLevel = getRoleInfo() == null ? "0" : getRoleInfo()
-                    .getVipLevel();
-            mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP, vipLevel); // vip类型
+            mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP,
+                    payInfo.getVipLevel()); // vip类型
 
-            String level = getRoleInfo() == null ? "0" : getRoleInfo()
-                    .getLevel();
-            mBundle.putString(GameInfoField.GAME_USER_LV, level); // 角色等级
+            mBundle.putString(GameInfoField.GAME_USER_LV, payInfo.getLevel()); // 角色等级
             mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME,
                     payInfo.getRoleName()); // 角色名称
             mBundle.putString(GameInfoField.GAME_USER_ROLEID,
