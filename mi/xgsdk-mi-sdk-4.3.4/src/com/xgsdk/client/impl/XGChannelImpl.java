@@ -4,7 +4,7 @@ package com.xgsdk.client.impl;
 import com.xgsdk.client.api.XGErrorCode;
 import com.xgsdk.client.api.callback.PayCallBack;
 import com.xgsdk.client.api.entity.PayInfo;
-import com.xgsdk.client.core.ProductInfo;
+import com.xgsdk.client.core.XGInfo;
 import com.xgsdk.client.core.service.AuthService;
 import com.xgsdk.client.core.service.PayService;
 import com.xgsdk.client.core.utils.XGLog;
@@ -31,6 +31,11 @@ public class XGChannelImpl extends XGChannel {
     }
 
     @Override
+    public String getChannelAppId(Context context) {
+        return XGInfo.getXGConfig(context, "AppID", null);
+    }
+
+    @Override
     public void init(Activity activity) {
 
     }
@@ -40,11 +45,11 @@ public class XGChannelImpl extends XGChannel {
         super.onApplicationCreate(context);
         try {
             MiAppInfo appInfo = new MiAppInfo();
-            String appId = ProductInfo.getXGConfig(context, "AppID", null);
-            String appKey = ProductInfo.getXGConfig(context, "AppKey", null);
+            String appId = XGInfo.getXGConfig(context, "AppID", null);
+            String appKey = XGInfo.getXGConfig(context, "AppKey", null);
             appInfo.setAppId(appId);
             appInfo.setAppKey(appKey);
-            appInfo.setOrientation(ProductInfo.isLandspcape(context) ? ScreenOrientation.horizontal
+            appInfo.setOrientation(XGInfo.isLandspcape(context) ? ScreenOrientation.horizontal
                     : ScreenOrientation.vertical);
             MiCommplatform.Init(context, appInfo);
         } catch (Exception e) {
@@ -147,7 +152,8 @@ public class XGChannelImpl extends XGChannel {
                                                 activity,
                                                 payInfo.getXgOrderId(), null,
                                                 null, null, null, null, null,
-                                                null, null, null, null, null);
+                                                null, null, null, null, null,
+                                                null, null, null);
                                     } catch (Exception e) {
                                         XGLog.e("pay success, exception is :"
                                                 + e.getMessage(), e);
@@ -196,4 +202,5 @@ public class XGChannelImpl extends XGChannel {
             payCallBack.onFail(XGErrorCode.PAY_FAILED, "pay fail");
         }
     }
+
 }
