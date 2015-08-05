@@ -32,7 +32,7 @@ public class XGChannelImpl extends XGChannel {
 
     @Override
     public String getChannelAppId(Context context) {
-        return XGInfo.getXGConfig(context, "AppID", null);
+        return XGInfo.getSdkConfig(context, "AppID", null);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class XGChannelImpl extends XGChannel {
         super.onApplicationCreate(context);
         try {
             MiAppInfo appInfo = new MiAppInfo();
-            String appId = XGInfo.getXGConfig(context, "AppID", null);
-            String appKey = XGInfo.getXGConfig(context, "AppKey", null);
+            String appId = XGInfo.getSdkConfig(context, "AppID", null);
+            String appKey = XGInfo.getSdkConfig(context, "AppKey", null);
             appInfo.setAppId(appId);
             appInfo.setAppKey(appKey);
             appInfo.setOrientation(XGInfo.isLandspcape(context) ? ScreenOrientation.horizontal
@@ -116,13 +116,10 @@ public class XGChannelImpl extends XGChannel {
             Bundle mBundle = new Bundle();
             mBundle.putString(GameInfoField.GAME_USER_BALANCE,
                     payInfo.getBalance()); // 余额信息
-            String vipLevel = getRoleInfo() == null ? "0" : getRoleInfo()
-                    .getVipLevel();
-            mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP, vipLevel); // vip类型
+            mBundle.putString(GameInfoField.GAME_USER_GAMER_VIP,
+                    payInfo.getVipLevel()); // vip类型
 
-            String level = getRoleInfo() == null ? "0" : getRoleInfo()
-                    .getLevel();
-            mBundle.putString(GameInfoField.GAME_USER_LV, level); // 角色等级
+            mBundle.putString(GameInfoField.GAME_USER_LV, payInfo.getLevel()); // 角色等级
             mBundle.putString(GameInfoField.GAME_USER_ROLE_NAME,
                     payInfo.getRoleName()); // 角色名称
             mBundle.putString(GameInfoField.GAME_USER_ROLEID,
