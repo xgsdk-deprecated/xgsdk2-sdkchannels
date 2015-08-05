@@ -63,7 +63,9 @@ public class XGChannelImpl extends XGChannel {
      * Description: 【必须实现】<br>
      * 此方法将在游戏主Activity的onCreate中被调用， 若有渠道不允许init方法在Activity的onCreate调用，请使用其他方式
      * 例如：小米init方法推荐在Application的onCreate方法中调用，需要Override
-     * XGChannel的onApplicationCreate方法，在其中进行init
+     * XGChannel的onApplicationCreate方法，在其中进行init <br>
+     * <br>
+     * 调用渠道的init方法，init成功后不做callback，init失败后，要调用 mUserCallBack.onInitFail
      * </p>
      * 
      * @param activity
@@ -85,7 +87,8 @@ public class XGChannelImpl extends XGChannel {
      * </p>
      * <p>
      * Description: 【必须实现】<br>
-     * 调用渠道的登录接口，login的callback是父类中的mUserCallBack
+     * 调用渠道的登录接口，login的callback是父类中的mUserCallBack<br>
+     * 
      * </p>
      * 
      * @param activity
