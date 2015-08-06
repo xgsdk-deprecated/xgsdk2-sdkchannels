@@ -159,9 +159,8 @@ public class XGChannelImpl extends XGChannel {
                                 case MiErrorCode.MI_XIAOMI_PAYMENT_ERROR_PAY_CANCEL:
                                     // 取消购买
                                     try {
-                                        PayService.cancelOrderInThread(
-                                                activity,
-                                                payInfo.getXgOrderId());
+									PayService.cancelOrder(activity,
+											payInfo.getXgOrderId(), null);
                                     } catch (Exception e) {
                                         XGLog.e("pay cancel,exception is :"
                                                 + e.getMessage(), e);
