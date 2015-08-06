@@ -54,8 +54,7 @@ public class XGChannelImpl extends XGChannel {
             MiCommplatform.Init(context, appInfo);
         } catch (Exception e) {
             XGLog.e(getChannelId() + " init error.", e);
-            mUserCallBack.onInitFail(XGErrorCode.SDK_CLIENT_INIT_FAILED,
-                    e.getMessage());
+            mUserCallBack.onInitFail(XGErrorCode.INIT_FAILED, e.getMessage());
         }
     }
 
@@ -97,7 +96,7 @@ public class XGChannelImpl extends XGChannel {
                             case MiErrorCode.MI_XIAOMI_PAYMENT_ERROR_LOGIN_FAIL:
                             default:
                                 mUserCallBack.onLoginFail(
-                                        XGErrorCode.CHANNEL_ERROR,
+                                        XGErrorCode.LOGIN_FAILED,
                                         getChannelId() + " errcode: " + code);
                                 break;
                         }
@@ -179,15 +178,21 @@ public class XGChannelImpl extends XGChannel {
                                 case MiErrorCode.MI_XIAOMI_PAYMENT_ERROR_PAY_REPEAT:
                                     // 已购买过，无需购买，可直接使用
                                     payCallBack
-                                            .onFail(XGErrorCode.PAY_FAILED_CHANNEL_ERROR,
+                                            .onFail(XGErrorCode.PAY_FAILED_CHANNEL_RESPONSE,
                                                     "repeat pay .code : "
                                                             + code);
+                                    XGLog.i(XGErrorCode
+                                            .parseCode(XGErrorCode.PAY_FAILED_CHANNEL_RESPONSE)
+                                            + " repeat pay.code : " + code);
                                     break;
                                 case MiErrorCode.MI_XIAOMI_PAYMENT_ERROR_PAY_FAILURE:
                                 default:
                                     payCallBack
-                                            .onFail(XGErrorCode.PAY_FAILED_CHANNEL_ERROR,
+                                            .onFail(XGErrorCode.PAY_FAILED_CHANNEL_RESPONSE,
                                                     "code : " + code);
+                                    XGLog.i(XGErrorCode
+                                            .parseCode(XGErrorCode.PAY_FAILED_CHANNEL_RESPONSE)
+                                            + " .code : " + code);
                                     break;
                             }
 

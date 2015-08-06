@@ -76,8 +76,8 @@ public class XGChannelImpl extends XGChannel {
 
         // 调用渠道的init方法，init成功后不做callback
 
-        mUserCallBack.onInitFail(XGErrorCode.SDK_CLIENT_INIT_FAILED, "");// init失败后，要调用
-                                                                         // mUserCallBack.onInitFail
+        mUserCallBack.onInitFail(XGErrorCode.INIT_FAILED, "");// init失败后，要调用
+                                                              // mUserCallBack.onInitFail
 
     }
 
@@ -88,7 +88,6 @@ public class XGChannelImpl extends XGChannel {
      * <p>
      * Description: 【必须实现】<br>
      * 调用渠道的登录接口，login的callback是父类中的mUserCallBack<br>
-     * 
      * </p>
      * 
      * @param activity
