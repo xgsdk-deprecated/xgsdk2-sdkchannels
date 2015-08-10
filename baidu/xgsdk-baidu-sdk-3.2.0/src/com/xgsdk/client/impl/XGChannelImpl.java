@@ -34,6 +34,7 @@ public class XGChannelImpl extends XGChannel{
 	public String getChannelId() {
 		return "baidu";
 	}
+	
 
 	@Override
 	public void init(final Activity activity) {
@@ -56,7 +57,7 @@ public class XGChannelImpl extends XGChannel{
 						XGLog.d(getChannelId() + " init success.");
 					case ResultCode.INIT_FAIL:
 						XGLog.e(getChannelId() + " init fail.");
-						mUserCallBack.onInitFail(XGErrorCode.SDK_CLIENT_INIT_FAILED,
+						mUserCallBack.onInitFail(XGErrorCode.INIT_FAILED,
 			                   resultDesc);
 					}
 					
@@ -75,7 +76,7 @@ public class XGChannelImpl extends XGChannel{
 			});
 		}catch(Exception e){
 			XGLog.d("Init Fail");
-			mUserCallBack.onInitFail(XGErrorCode.SDK_CLIENT_INIT_FAILED, "Init Fail");
+			mUserCallBack.onInitFail(XGErrorCode.INIT_FAILED, "Init Fail");
 			
 		}
 	}
@@ -110,7 +111,7 @@ public class XGChannelImpl extends XGChannel{
 					break;
 				default:
 					mUserCallBack.onLoginFail(
-                            XGErrorCode.CHANNEL_ERROR,
+                            XGErrorCode.LOGIN_FAILED,
                             getChannelId() + " errcode: " + resultCode);
 					break;
 				}
@@ -124,7 +125,7 @@ public class XGChannelImpl extends XGChannel{
 		try{
 			if(!BDGameSDK.isLogined()){
 				payCallBack
-	            .onFail(XGErrorCode.PAY_FAILED_CHANNEL_ERROR,
+	            .onFail(XGErrorCode.PAY_FAILED,
 	                    "User hasn't logined in");
 				return;
 			}
@@ -170,12 +171,12 @@ public class XGChannelImpl extends XGChannel{
 	                    break;
 					case ResultCode.PAY_FAIL:
 						payCallBack
-	                    .onFail(XGErrorCode.PAY_FAILED_CHANNEL_ERROR,
+	                    .onFail(XGErrorCode.PAY_FAILED,
 	                            "PayFail, message : " + resultDesc);
 						break;
 					default:
 						payCallBack
-	                    .onFail(XGErrorCode.PAY_FAILED_CHANNEL_ERROR,
+	                    .onFail(XGErrorCode.PAY_FAILED,
 	                            "message : " + resultDesc);
 						break;
 					}
@@ -241,7 +242,7 @@ public class XGChannelImpl extends XGChannel{
 					break;
 				default:
 					mUserCallBack.onLoginFail(
-                            XGErrorCode.CHANNEL_ERROR,
+                            XGErrorCode.LOGIN_FAILED,
                             getChannelId() + " errcode: " + resultCode);
 					break;
 					
@@ -310,6 +311,7 @@ public class XGChannelImpl extends XGChannel{
 	public void onStop(final Activity activity) {
 		XGLog.e("onStop calling...");
 		// undo
+		BDGameSDK.closeFloatView(activity);
 		if (mActivityAdPage != null) {
 			mActivityAdPage.onStop();
 		}

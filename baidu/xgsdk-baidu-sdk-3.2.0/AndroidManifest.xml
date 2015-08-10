@@ -37,7 +37,7 @@
     <!-- ↑↑↑ DK SDK ↑↑↑ -->
 
     <application
-        android:name="com.xgsdk.client.api.XGApplication"
+        android:name="com.xgsdk.client.api.XG1Application"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/xg_app_name" >
