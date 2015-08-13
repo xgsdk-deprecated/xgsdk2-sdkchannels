@@ -131,9 +131,9 @@ public class XGChannelImpl extends XGChannel{
 			}
 			//定额支付
 			PayOrderInfo payOrderInfo = new PayOrderInfo();
-			payOrderInfo.setCooperatorOrderSerial(payment.getGameOrderId());
+			payOrderInfo.setCooperatorOrderSerial(payment.getGameTradeNo());
 			payOrderInfo.setProductName(payment.getProductName());
-			payOrderInfo.setTotalPriceCent(payment.getProductTotalPrice() * 100);
+			payOrderInfo.setTotalPriceCent(payment.getTotalPrice() * 100);
 			payOrderInfo.setRatio(1);
 			payOrderInfo.setExtInfo(payment.getUid());
 			BDGameSDK.pay(payOrderInfo, null, new IResponse<PayOrderInfo>(){

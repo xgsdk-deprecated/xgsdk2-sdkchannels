@@ -111,7 +111,7 @@ public class XGChannelImpl extends XGChannel{
 		data.put("currency", payInfo.getCurrencyName());
 		data.put("rate", XGInfo.getSdkConfig(activity, "rate", null));
 		data.put("product_name", payInfo.getProductName());
-		data.put("amount", payInfo.getProductTotalPrice());
+		data.put("amount", payInfo.getTotalPrice());
 		data.put("unit_price", payInfo.getProductUnitPrice());
 		data.put("product_number", payInfo.getXgOrderId());
 		data.put("appmodes", false);
