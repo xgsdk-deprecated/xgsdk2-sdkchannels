@@ -202,7 +202,7 @@ public class XGChannelImpl extends XGChannel{
 	}
 	
 	@Override
-	public void onDestory(final Activity activity){
+	public void onDestroy(final Activity activity){
 		XGLog.d("calling destory...");
 		if (mActivityAdPage != null) {
 			mActivityAdPage.onDestroy();
