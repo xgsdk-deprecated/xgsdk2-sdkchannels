@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xgsdk.client.demo.MainActivity"
+            android:name="com.xgsdk.client.testdemo.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
@@ -62,6 +62,12 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.xgsdk.client.testdemo.orders.OrdersActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         
          <!-- ↓↓↓ SDK ↓↓↓ -->
