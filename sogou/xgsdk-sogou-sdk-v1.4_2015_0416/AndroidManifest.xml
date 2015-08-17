@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xgsdk.client.demo.orders.OrdersActivity"
+            android:name="com.xgsdk.client.testdemo.orders.OrdersActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
