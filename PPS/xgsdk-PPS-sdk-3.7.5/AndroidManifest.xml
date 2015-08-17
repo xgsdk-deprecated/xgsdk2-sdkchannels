@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xgsdk.client.impl"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    <!-- <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>  -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    
+     <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />  
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />  
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+    <application
+        android:name="com.xgsdk.client.api.XGApplication"
+        android:allowBackup="true" >
+        <activity
+            android:name="com.xgsdk.client.api.splash.XGSplashActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xgsdk.client.testdemo.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="xg.game.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xgsdk.client.testdemo.orders.OrdersActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        
+        <!-- 竖屏 android:screenOrientation="sensorPortrait"  -->
+        <!-- 横屏 android:screenOrientation="sensorLandscape"  -->
+        <!-- 登录与充值 -->
+        <activity
+            android:name="com.ppsgame.plugin.PPSGameProxyActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" 
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        <activity
+            android:name="com.ppsgame.plugin.PPSGameProxyFragmentActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" 
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <!-- alipay sdk end -->
+        
+        <service android:name="com.ppsgame.plugin.PPSGamePluginUpdateService"/>
+        <service android:name="com.pps.sdk.platform.PPSGamePushAdsService"/>
+        <!-- 登录与充值 -->
+        
+        <!-- 侧边栏 -->
+        <activity
+            android:name="com.pps.sdk.slidebar.plug.activity.DLProxyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
+            <intent-filter>
+                <action android:name="com.pps.sdk.slidebar.plug.activity.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.pps.sdk.slidebar.plug.activity.DLProxyFragmentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
+            <intent-filter>
+                <action android:name="com.pps.sdk.slidebar.plug.fragmentactivity.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="com.pps.sdk.slidebar.plug.service.DLProxyService" >
+            <intent-filter>
+                <action android:name="com.pps.sdk.slidebar.plug.DLProxyService.Service" />
+            </intent-filter>
+        </service>
+        <service android:name="com.pps.sdk.slidebar.plug.service.DLCommonService" >
+            <intent-filter>
+                <action android:name="com.pps.sdk.slidebar.plug.DLCommonService.Service" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.pps.sdk.slidebar.plug.receiver.DLProxyReceiver" >
+            <intent-filter>
+                <action android:name="com.pps.sdk.slidebar.plug.DLProxyReceiver.Receiver" />
+            </intent-filter>
+        </receiver>
+        <!-- 侧边栏 -->
+        
+        <!-- 银联 -->
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|screenLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.UPPay" />
+        <activity
+            android:name="com.unionpay.uppay.PayActivityEx"
+            android:configChanges="orientation|keyboardHidden|screenLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.UPPay"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="com.unionpay.upomp.bypay.activity.SplashActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+        
+        </activity>
+
+        <activity android:name="com.unionpay.upomp.bypay.activity.PayMainActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.PayUserCreditActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.PayUserDebitActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.PayOnUserTelActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.PayResultActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity android:name="com.unionpay.upomp.bypay.activity.PayResultLoseActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name="com.unionpay.upomp.bypay.activity.RegisterActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name="com.unionpay.upomp.bypay.activity.RegisterResultActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.UserProtocalActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.OnUserCardManageActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.OnUserUserManageActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.changePswActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name="com.unionpay.upomp.bypay.activity.changeTelActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.OnUserBindCardCreditActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.OnUserBindCardDebitActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.OnUserBindCardPanActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.OnUserBindCardResultActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.unionpay.upomp.bypay.activity.SupportActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity android:name="com.unionpay.upomp.bypay.activity.GetpassActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity android:name="com.unionpay.upomp.bypay.activity.AuthBindCardActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
+        <activity android:name="com.unionpay.upomp.bypay.activity.AboutActivity"
+            android:screenOrientation="portrait" android:theme="@style/upomp_bypay_MyDialog"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <!-- 银联 -->
+         
+    </application>
+
+</manifest>
