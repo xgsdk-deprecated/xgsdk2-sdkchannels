@@ -36,8 +36,9 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" /> 
     <!-- ↑↑↑ DK SDK ↑↑↑ -->
 
+	<!-- ↓↓↓ 西瓜SDK配置 ↓↓↓ -->
     <application
-        android:name="com.xgsdk.client.api.XG1Application"
+        android:name="com.xgsdk.client.api.XGApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/xg_app_name" >
@@ -53,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xgsdk.client.demo.MainActivity"
+            android:name="com.xgsdk.client.testdemo.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
