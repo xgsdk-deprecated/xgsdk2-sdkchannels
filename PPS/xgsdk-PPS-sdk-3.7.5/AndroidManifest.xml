@@ -49,7 +49,7 @@
         <activity
             android:name="com.xgsdk.client.testdemo.MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="xg.game.MAIN" />

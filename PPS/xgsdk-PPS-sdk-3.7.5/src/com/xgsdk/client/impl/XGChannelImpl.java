@@ -25,7 +25,7 @@ import com.pps.sdk.platform.PPSUser;
 public class XGChannelImpl extends XGChannel{
 
 	//pps两次回调，导致订单重复cancel。该标志位用于放置退出平台时发送两次回调。
-		private boolean isProcessedFlag = false;
+	private boolean isProcessedFlag = false;
 		
 	@Override
 	public String getChannelId() {
@@ -36,14 +36,31 @@ public class XGChannelImpl extends XGChannel{
 	public String getChannelAppId(Context context) {
 		return XGInfo.getSdkConfig(context, "gameid", null);
 	}
-
+	
 	@Override
+	public void onCreate(final Activity activity){
+		PPSPlatform ppsPlatform = PPSPlatform.getInstance();
+		ppsPlatform.initPlatform(activity, getChannelAppId(activity), new PPSGamePlatformInitListener(){
+			@Override
+			public void onSuccess(){
+				XGLog.d("Init success");
+			}
+
+			@Override
+			public void onFail(String arg0) {
+				mUserCallBack.onInitFail(XGErrorCode.INIT_FAILED, "Init fail");
+				XGLog.e("Init fail");
+			}
+		});
+	}
+	
+/*	@Override
 	public void init(Activity activity) {
 		PPSPlatform ppsPlatform = PPSPlatform.getInstance();
 		ppsPlatform.initPlatform(activity, getChannelAppId(activity), new PPSGamePlatformInitListener(){
 			@Override
 			public void onSuccess(){
-				XGLog.e("Init success");
+				XGLog.d("Init success");
 			}
 
 			@Override
@@ -54,31 +71,15 @@ public class XGChannelImpl extends XGChannel{
 		});
 		
 		
-	}
+	}*/
 
 	@Override
 	public void login(Activity activity, String customParams) {
-		PPSPlatform ppsPlatform = PPSPlatform.getInstance();
-		ppsPlatform.ppsLogin(activity, new PPSPlatformListener() {
-			@Override
-			public void leavePlatform(){
-				super.leavePlatform();
-				System.out.println("SDK界面关闭");
-			}
-			
-			@Override
-			public void loginResult(int result, PPSUser user){
-				super.loginResult(result, user);
-				if(result == PPSResultCode.SUCCESSLOGIN && user != null){
-					mUserCallBack.onLoginSuccess(user.toString());
-					XGLog.d("Login success");
-				} else if(result == PPSResultCode.ERRORLOGIN){
-					mUserCallBack.onLoginFail(result, "Login fail");
-					XGLog.e("Login fail");
-				}
-			}
-		});
-		
+		LoginCallback loginCallback = new LoginCallback(activity, mUserCallBack);
+		loginCallback.setLoginClicked(true);
+		PPSPlatform.getInstance().ppsLogin(activity,
+				loginCallback);
+		XGLog.d("login finish");
 	}
 
 	@Override
@@ -88,9 +89,9 @@ public class XGChannelImpl extends XGChannel{
 		try{
 			PPSPlatform ppsPlatform = PPSPlatform.getInstance();
 			int code = 0;
-			if(payInfo.getTotalPrice() == 0){
+			if(payInfo.getTotalPrice() != 0){
 				code = ppsPlatform.ppsPayment(activity, payInfo.getTotalPrice(), payInfo.getRoleId(),
-						payInfo.getServerId(), payInfo.getXgOrderId(), new PPSPlatformListener(){
+						"ppsmobile_s" + payInfo.getServerId(), payInfo.getXgOrderId(), new PPSPlatformListener(){
 					
 					@Override
 					public void leavePlatform(){
@@ -145,7 +146,7 @@ public class XGChannelImpl extends XGChannel{
 				});
 			} else {
 				code = ppsPlatform.ppsPayment(activity, payInfo.getRoleId(),
-						payInfo.getServerId(), payInfo.getXgOrderId(), new PPSPlatformListener(){
+						"ppsmobile_s" +payInfo.getServerId(), payInfo.getXgOrderId(), new PPSPlatformListener(){
 					
 					@Override
 					public void leavePlatform(){
@@ -215,13 +216,15 @@ public class XGChannelImpl extends XGChannel{
 	public void onEnterGame(final Activity activity, XGUser user,
             RoleInfo roleInfo, GameServerInfo serverInfo) {
 		PPSPlatform ppsPlatform = PPSPlatform.getInstance();
-		ppsPlatform.enterGame(activity, serverInfo.getServerId());
+		ppsPlatform.enterGame(activity, "ppsmobile_s" + serverInfo.getServerId());
     }
 	
 	@Override
-	public void onCreateRole(final Activity activity, final RoleInfo info){
+	public void onCreateRole(final Activity activity, final XGUser user,
+            final RoleInfo info,final GameServerInfo serverInfo){
+		XGLog.d("ppsmobile_s" + serverInfo.getServerId());
 		PPSPlatform ppsPlatform = PPSPlatform.getInstance();
-		//ppsPlatform.createRole(activity,);
+		ppsPlatform.createRole(activity,"ppsmobile_s" + serverInfo.getServerId());
 	}
 	
 	@Override
@@ -254,7 +257,7 @@ public class XGChannelImpl extends XGChannel{
 	public void switchAccount(final Activity activity, final String customParams){
 		XGLog.d("logout calling...");
 		int code = PPSPlatform.getInstance().ppsChangeAccount(activity,
-				new LoginCallback(activity));
+				new LoginCallback(activity, mUserCallBack));
 		if (code != 10) {
 			XGLog.e("ppsChangeAccount失败,错误码:" + code);
 		}	
@@ -276,8 +279,15 @@ public class XGChannelImpl extends XGChannel{
 				super.logout();
 				mUserCallBack.onLogoutSuccess("logout success");
 				XGLog.d("exit success");
+				activity.finish();
 			}
 		});
+	}
+
+	@Override
+	public void init(Activity activity) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

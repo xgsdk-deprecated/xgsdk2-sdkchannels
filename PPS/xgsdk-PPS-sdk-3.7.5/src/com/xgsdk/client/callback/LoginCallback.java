@@ -18,8 +18,9 @@ public class LoginCallback extends PPSPlatformListener {
 	/**
 	 * 
 	 */
-	public LoginCallback(Activity activity) {
+	public LoginCallback(Activity activity, UserCallBack mUserCallBack) {
 		this.activity = activity;
+		this.mUserCallBack = mUserCallBack;
 	}
 
 	private boolean isLoginClicked;
@@ -36,7 +37,7 @@ public class LoginCallback extends PPSPlatformListener {
 	public void leavePlatform() {
 		super.leavePlatform();
 
-		// Callback.doLoginCancelCallback("取消登录");
+		mUserCallBack.onLoginCancel("Login cancel");
 		XGLog.d("登录后，退出pps平台中心。");
 	}
 
@@ -64,15 +65,12 @@ public class LoginCallback extends PPSPlatformListener {
 			XGLog.d("timestamp => " + user.timestamp);
 			XGLog.d("sign => " + user.sign);
 			try {
-				String authInfo = AuthService.genAuthInfo(activity,user.sign,user.uid, user.name
-						);
+				String authInfo = AuthService.genAuthInfo(activity,user.sign,user.uid, user.name);
 				XGLog.d("generate authinfo:" + authInfo);
-
 				// 添加 SDK浮标
 				XGLog.d("start call pps showToolbar");
 				PPSPlatform.getInstance().initSliderBar(activity);
 				XGLog.d("end call pps showToolbar");
-
 				mUserCallBack.onLoginSuccess(authInfo);
 			} catch (Exception e) {
 				e.printStackTrace();
